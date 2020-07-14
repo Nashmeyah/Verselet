@@ -5,11 +5,11 @@ window.addEventListener("load", () => {
 });
 
 function getPoets() {
-  clearForm();
+  // clearForm();
   let main = document.querySelector("#main");
   main.innerHTML = "";
   fetch(BASE_URL + "/poets")
-    .then((respone) => respone.json())
+    .then((response) => response.json())
     .then((poets) => {
       main.innerHTML += poets
         .map(

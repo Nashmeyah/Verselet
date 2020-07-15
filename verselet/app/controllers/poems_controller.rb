@@ -9,9 +9,11 @@ class PoemsController < ApplicationController
   end
 
   # GET /poems/1
-  # def show
-  #   render json: @poem
-  # end
+  def show
+    poem = Poem.find_by(id: params[:id])
+    
+    render json: @poem
+  end
 
   # # POST /poems
   # def create

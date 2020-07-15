@@ -6,6 +6,9 @@ window.addEventListener("load", () => {
   getPoets();
 });
 
+const main = () => {
+  return document.querySelector("main");
+};
 //loads poets
 const getPoets = () => {
   fetch("http://localhost:3000/poets")
@@ -27,4 +30,61 @@ const renderPoetsCard = (poets) => {
   `;
   poetsCard.lastElementChild.addEventListener("click", addPoem);
   main().appendChild(poetsCard);
+  let poemsList = document.createElement("ul");
+  poetsCard.appendChild(poemsList);
+
+  poets.poems.forEach((poem) => renderPoems(poem, poemsList));
+};
+
+const renderPoems = (poem, list, e) => {
+  let poemCard = document.createElement("li");
+  poemCard.id = `poem-${poem.id}`;
+  poemCard.innerText = `${poem.title} (${poem.body})`;
+  let releaseBtn = document.createElement("button");
+  releaseBtn.className = "delete";
+  releaseBtn.dataset.poemId = poem.id;
+  releaseBtn.innerText = "Delete";
+  releaseBtn.addEventListener("click", deletePoem);
+  poemCard.appendChild(releaseBtn);
+  if (!list) {
+    list = e.target.parentElement.lastElementChild;
+  }
+  list.appendChild(poemCard);
+};
+const deletePoem = (e) => {
+  fetch(POEMS_URL + `/${e.target.dataset.poemId}`, {
+    method: "DELETE",
+  })
+    .then((r) => r.json())
+    .then((poem) => removePoem(poem.id));
+};
+
+const removePoem = (id) => {
+  let cardToRemove = document.getElementById(`poem-${id}`);
+  cardToRemove.parentElement.removeChild(cardToRemove);
+};
+
+const addPoem = (e) => {
+  console.log("adding poems...");
+  let configObj = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      poet_id: e.target.dataset.poetId,
+    }),
+  };
+  fetch(POEMS_URL, configObj)
+    .then((r) => r.json())
+    .then((data) => addPoemsToDom(data, e));
+};
+
+const addPoemsToDom = (data, e) => {
+  if (data.message) {
+    alert(data.message);
+  } else {
+    renderPoems(data, undefined, e);
+  }
 };

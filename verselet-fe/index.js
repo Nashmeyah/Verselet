@@ -1,90 +1,30 @@
 const BASE_URL = "http://localhost:3000";
+const POETS_URL = `${BASE_URL}/poets`;
+const POEMS_URL = `${BASE_URL}/poems`;
 
 window.addEventListener("load", () => {
   getPoets();
 });
 
-function getPoets() {
-  clearForm();
-  let main = document.querySelector("#main");
-  main.innerHTML = "";
-  fetch(BASE_URL + "/poets")
+//loads poets
+const getPoets = () => {
+  fetch("http://localhost:3000/poets")
     .then((response) => response.json())
-    .then((poets) => {
-      main.innerHTML += poets
-        .map(
-          (poet) => `
-      <li>
-        <a href="#" data-id="${poet.id}">${poet.name}</a>
-        - ${poet.style}
-      </li>
-    `
-        )
-        .join("");
-    });
+    .then((data) => renderPoets(data));
+};
 
-  attachClicktoLinks();
-}
+const renderPoets = (poetsData) => {
+  poetsData.forEach((poet) => renderPoetsCard(poet));
+};
 
-function clearForm() {
-  let poemFormDiv = document.getElementById("poem-form");
-  poemFormDiv.innerHTML = "";
-}
-
-function attachClicktoLinks() {
-  let poems = document.querySelectorAll("li a");
-  poems.forEach((poem) => {
-    poem.addEventListener("click", displayPoem);
-  });
-
-  document
-    .getElementById("poemForm")
-    .addEventListener("click", displayPoemForm);
-}
-
-function displayPoemForm() {
-  let poemFormDiv = document.getElementById("poem-form");
-
-  let html = `
-  <form>
-    <label>Title</label>
-    <input type="text" id="title">
-    <label>Poem</label>
-    <input type="text" id="body">
-    <input type="submit">
-  </form>
+const renderPoetsCard = (poets) => {
+  let poetsCard = document.createElement("div");
+  poetsCard.className = "card";
+  poetsCard.dataset.id = poets.id;
+  poetsCard.innerHTML = `
+    <p>${poets.name}</p>
+    <button data-poet-id=${poets.id}>Add Poem</button>
   `;
-
-  poemFormDiv.innerHTML = html;
-  document.querySelector("form").addEventListener("submit", createPoem);
-}
-
-function createPoem() {
-  event.preventDefault();
-  const poem = {
-    title: document.getElementById("title").value,
-    body: document.getElementById("body").value,
-  };
-
-  fetch(BASE_URL + "/poets", {
-    method: "POST",
-    body: JSON.stringify(poem),
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
-    .then((response) => response.json)
-    .then((poet) => {
-      document.querySelector("#main").innerHTML += `
-    <li>
-        <a href="#" data-id="${poet.id}">${poet.name}</a>
-        - ${poet.style}
-      </li>
-      `;
-      attachClicktoLinks();
-      clearForm();
-    });
-}
-
-function displayPoem() {}
+  poetsCard.lastElementChild.addEventListener("click", addPoem);
+  main().appendChild(poetsCard);
+};

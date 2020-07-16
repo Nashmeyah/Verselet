@@ -85,6 +85,7 @@ const displayPoemForm = () => {
   poemForm.innerHTML = html;
   document.querySelector("form").addEventListener("submit", createPoem);
 };
+
 const createPoem = (e) => {
   e.preventDefault();
   console.log("adding poems...");
@@ -106,6 +107,7 @@ const createPoem = (e) => {
 };
 
 const addPoemsToDom = (data, e) => {
+  clearForm();
   if (data.message) {
     alert(data.message);
   } else {

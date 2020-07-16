@@ -28,7 +28,7 @@ const renderPoetsCard = (poets) => {
     <p>${poets.name}</p>
     <button data-poet-id=${poets.id}>Add Poem</button>
   `;
-  poetsCard.lastElementChild.addEventListener("click", addPoem);
+  poetsCard.lastElementChild.addEventListener("click", displayPoemForm);
   main().appendChild(poetsCard);
   let poemsList = document.createElement("ul");
   poetsCard.appendChild(poemsList);
@@ -64,7 +64,20 @@ const removePoem = (id) => {
   cardToRemove.parentElement.removeChild(cardToRemove);
 };
 
+const displayPoemForm = () => {
+  let poemForm = document.getElementById("poem-form");
+  let html = `
+  <form>
+    <label>Title</label>
+    <input type="text" id="title">
+    <label>Poem Body</label>
+    <input type="text" id="body">
+    <input type="submit" value"Submit">
+  </form>
+  `;
+};
 const addPoem = (e) => {
+  e.preventDefault();
   console.log("adding poems...");
   let configObj = {
     method: "POST",

@@ -27,7 +27,6 @@ body {
     background-color: #eeeeee;
     height: 250px;
     width: 300px;
-    box-shadow: 10px 10px grey;
     padding: 10px;
     border-radius: 10px;
   }
@@ -47,8 +46,8 @@ body {
   button {
     font-size: .65em;
     color: #fff;
-    background-color: green;
-    border-radius: 10px;
+    background-color: black;
+    
   }
   
   button.delete {

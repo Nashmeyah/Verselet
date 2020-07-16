@@ -51,6 +51,12 @@ const renderPoems = (poem, list, e) => {
   }
   list.appendChild(poemCard);
 };
+
+const clearForm = () => {
+  let poem = document.getElementById("poem-form");
+  poem.innerHTML = "";
+};
+
 const deletePoem = (e) => {
   fetch(POEMS_URL + `/${e.target.dataset.poemId}`, {
     method: "DELETE",
@@ -75,22 +81,27 @@ const displayPoemForm = () => {
     <input type="submit" value"Submit">
   </form>
   `;
+
+  poemForm.innerHTML = html;
+  document.querySelector("form").addEventListener("submit", createPoem);
 };
-const addPoem = (e) => {
+const createPoem = (e) => {
   e.preventDefault();
   console.log("adding poems...");
-  let configObj = {
+  const poem = {
+    title: document.getElementById("title").nodeValue,
+    body: document.getElementById("body").value,
+  };
+
+  fetch(POEMS_URL, {
     method: "POST",
+    body: JSON.stringify(poem),
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-    body: JSON.stringify({
-      poet_id: e.target.dataset.poetId,
-    }),
-  };
-  fetch(POEMS_URL, configObj)
-    .then((r) => r.json())
+  })
+    .then((response) => response.json())
     .then((data) => addPoemsToDom(data, e));
 };
 

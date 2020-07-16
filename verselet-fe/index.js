@@ -39,7 +39,7 @@ const renderPoetsCard = (poets) => {
 const renderPoems = (poem, list, e) => {
   let poemCard = document.createElement("li");
   poemCard.id = `poem-${poem.id}`;
-  poemCard.innerText = `${poem.title} (${poem.body})`;
+  poemCard.innerText = `Title: ${poem.title}`;
   let releaseBtn = document.createElement("button");
   releaseBtn.className = "delete";
   releaseBtn.dataset.poemId = poem.id;
@@ -89,10 +89,14 @@ const displayPoemForm = () => {
 const createPoem = (e) => {
   e.preventDefault();
   console.log("adding poems...");
+  let poetCardId = document.querySelector('.card[data-id="1"]');
   const poem = {
-    title: document.getElementById("title").nodeValue,
+    title: document.getElementById("title").value,
     body: document.getElementById("body").value,
+    poet_id: poetCardId.dataset.id,
   };
+
+  console.log(poem);
 
   fetch(POEMS_URL, {
     method: "POST",

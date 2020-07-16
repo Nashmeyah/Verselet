@@ -46,6 +46,6 @@ class PoemsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def poem_params
-      params.require(:poem).permit(:title, :body)
+      params.require(:poem).permit(:title, :body, :poet_id)
     end
 end

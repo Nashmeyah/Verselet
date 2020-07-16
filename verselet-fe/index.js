@@ -57,12 +57,10 @@ const clearForm = () => {
   poem.innerHTML = "";
 };
 
-const deletePoem = (e) => {
-  fetch(POEMS_URL + `/${e.target.dataset.poemId}`, {
+const deletePoem = () => {
+  fetch(POEMS_URL + `/${event.target.dataset.poemId}`, {
     method: "DELETE",
-  })
-    .then((r) => r.json())
-    .then((poem) => removePoem(poem.id));
+  }).then(removePoem(event.target.dataset.poemId));
 };
 
 const removePoem = (id) => {
@@ -73,7 +71,7 @@ const removePoem = (id) => {
 const displayPoemForm = () => {
   let poemForm = document.getElementById("poem-form");
   let html = `
-  <form>
+  <form data-poet-id="${event.target.dataset.poetId}">
     <label>Title</label>
     <input type="text" id="title">
     <label>Poem Body</label>
@@ -86,14 +84,14 @@ const displayPoemForm = () => {
   document.querySelector("form").addEventListener("submit", createPoem);
 };
 
-const createPoem = (e) => {
-  e.preventDefault();
+const createPoem = () => {
+  event.preventDefault();
   console.log("adding poems...");
-  let poetCardId = document.querySelector('.card[data-id="1"]');
+  let poetCardId = event.target.dataset.poetId;
   const poem = {
     title: document.getElementById("title").value,
     body: document.getElementById("body").value,
-    poet_id: poetCardId.dataset.id,
+    poet_id: poetCardId,
   };
 
   console.log(poem);
@@ -107,14 +105,9 @@ const createPoem = (e) => {
     },
   })
     .then((response) => response.json())
-    .then((data) => addPoemsToDom(data, e));
+    .then((data) => displayPoems(data));
 };
 
-const addPoemsToDom = (data, e) => {
-  clearForm();
-  if (data.message) {
-    alert(data.message);
-  } else {
-    renderPoems(data, undefined, e);
-  }
+const displayPoems = (data) => {
+  console.log(data);
 };

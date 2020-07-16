@@ -24,14 +24,7 @@ class PoemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /poems/1
-  def update
-    if @poem.update(poem_params)
-      render json: @poem
-    else
-      render json: @poem.errors, status: :unprocessable_entity
-    end
-  end
+  
 
   # DELETE /poems/1
   def destroy

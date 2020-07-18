@@ -36,7 +36,7 @@ const renderPoetsCard = (poets) => {
   poets.poems.forEach((poem) => renderPoems(poem, poemsList));
 };
 
-const renderPoems = (poem, list, e) => {
+const renderPoems = (poem, list) => {
   let poemCard = document.createElement("li");
   poemCard.id = `poem-${poem.id}`;
   poemCard.innerText = `Title: ${poem.title}`;
@@ -47,7 +47,7 @@ const renderPoems = (poem, list, e) => {
   releaseBtn.addEventListener("click", deletePoem);
   poemCard.appendChild(releaseBtn);
   if (!list) {
-    list = e.target.parentElement.lastElementChild;
+    list = event.target.parentElement.lastElementChild;
   }
   list.appendChild(poemCard);
 };
@@ -94,7 +94,7 @@ const createPoem = () => {
     poet_id: poetCardId,
   };
 
-  console.log(poem);
+  // console.log(poem);
 
   fetch(POEMS_URL, {
     method: "POST",
@@ -106,8 +106,22 @@ const createPoem = () => {
   })
     .then((response) => response.json())
     .then((data) => displayPoems(data));
+
+  clearForm();
 };
 
 const displayPoems = (data) => {
+  let card = document.querySelector(".card");
+  card.dataset.id = data.poet_id;
+  let poemCard = document.createElement("li");
+  poemCard.id = `poem-${data.id}`;
+  poemCard.innerText = `Title: ${data.title}`;
+  let releaseBtn = document.createElement("button");
+  releaseBtn.className = "delete";
+  releaseBtn.dataset.poemId = data.id;
+  releaseBtn.innerText = "Delete";
+  releaseBtn.addEventListener("click", deletePoem);
+  poemCard.appendChild(releaseBtn);
+
   console.log(data);
 };

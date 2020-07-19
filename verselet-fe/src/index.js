@@ -111,8 +111,9 @@ const createPoem = () => {
 };
 
 const displayPoems = (data) => {
-  let card = document.querySelector(".card");
-  card.dataset.id = data.poet_id;
+  let card = document.getElementById(`[data-id=${data.poem.id}]`);
+  // let card = document.querySelector(".card");
+
   let poemCard = document.createElement("li");
   poemCard.id = `poem-${data.id}`;
   poemCard.innerText = `Title: ${data.title}`;
@@ -122,6 +123,18 @@ const displayPoems = (data) => {
   releaseBtn.innerText = "Delete";
   releaseBtn.addEventListener("click", deletePoem);
   poemCard.appendChild(releaseBtn);
-
+  card.appendChild(poemCard);
   console.log(data);
+  console.log(data.poet.id);
 };
+
+// class Poem {
+//   constructor(poem) {
+//     this.title = poem.title;
+//     this.body = poem.body;
+//   }
+
+//   renderPoem() {
+//     return ``;
+//   }
+// }

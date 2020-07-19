@@ -31,6 +31,8 @@ const renderPoetsCard = (poets) => {
   poetsCard.lastElementChild.addEventListener("click", displayPoemForm);
   main().appendChild(poetsCard);
   let poemsList = document.createElement("ul");
+  poemsList.setAttribute("class", "poems-list");
+  poemsList.dataset.id = poets.id;
   poetsCard.appendChild(poemsList);
 
   poets.poems.forEach((poem) => renderPoems(poem, poemsList));
@@ -88,13 +90,14 @@ const createPoem = () => {
   event.preventDefault();
   console.log("adding poems...");
   let poetCardId = event.target.dataset.poetId;
+  console.log(poetCardId);
   const poem = {
     title: document.getElementById("title").value,
     body: document.getElementById("body").value,
     poet_id: poetCardId,
   };
 
-  // console.log(poem);
+  console.log(poem);
 
   fetch(POEMS_URL, {
     method: "POST",
@@ -105,36 +108,47 @@ const createPoem = () => {
     },
   })
     .then((response) => response.json())
-    .then((data) => displayPoems(data));
+    .then((data) => renderPoem(data));
 
   clearForm();
 };
 
-const displayPoems = (data) => {
-  let card = document.getElementById(`[data-id=${data.poem.id}]`);
-  // let card = document.querySelector(".card");
+// const displayPoems = (data) => {
+//   // let card = document.querySelector(`[data-id='${data.poet.id}']`);
+//   // let ul = card.querySelector(".poems-list");
 
-  let poemCard = document.createElement("li");
-  poemCard.id = `poem-${data.id}`;
-  poemCard.innerText = `Title: ${data.title}`;
-  let releaseBtn = document.createElement("button");
-  releaseBtn.className = "delete";
-  releaseBtn.dataset.poemId = data.id;
-  releaseBtn.innerText = "Delete";
-  releaseBtn.addEventListener("click", deletePoem);
-  poemCard.appendChild(releaseBtn);
-  card.appendChild(poemCard);
-  console.log(data);
-  console.log(data.poet.id);
-};
+//   // let poemCard = document.createElement("li");
+//   // poemCard.id = `poem-${data.id}`;
+//   // poemCard.innerText = `Title: ${data.title}`;
+//   // let releaseBtn = document.createElement("button");
+//   // releaseBtn.className = "delete";
+//   // releaseBtn.dataset.poemId = data.id;
+//   // releaseBtn.innerText = "Delete";
+//   // releaseBtn.addEventListener("click", deletePoem);
+//   // ul.appendChild(poemCard);
+//   // poemCard.appendChild(releaseBtn);
+// };
 
-// class Poem {
-//   constructor(poem) {
-//     this.title = poem.title;
-//     this.body = poem.body;
-//   }
+class Poem {
+  constructor(poem) {
+    this.id = poem.id;
+    this.title = poem.title;
+    this.body = poem.body;
+  }
 
-//   renderPoem() {
-//     return ``;
-//   }
-// }
+  renderPoem() {
+    let card = document.querySelector(`[data-id='${this.poet.id}']`);
+    let ul = card.querySelector(".poems-list");
+
+    let poemCard = document.createElement("li");
+    poemCard.id = `poem-${this.id}`;
+    poemCard.innerText = `Title: ${this.title}`;
+    let releaseBtn = document.createElement("button");
+    releaseBtn.className = "delete";
+    releaseBtn.dataset.poemId = this.id;
+    releaseBtn.innerText = "Delete";
+    releaseBtn.addEventListener("click", deletePoem);
+    ul.appendChild(poemCard);
+    poemCard.appendChild(releaseBtn);
+  }
+}

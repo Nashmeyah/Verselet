@@ -1,7 +1,7 @@
 class Poem {
   constructor(data) {
-    this.id = poem.id;
-    this.poet.id = data.poet.id;
+    this.id = data.id;
+    this.poet = data.poet;
     this.title = data.title;
     this.body = data.body;
   }

@@ -1,14 +1,14 @@
 body {
+  background: url("images/169279-simple_background.jpg") no-repeat fixed center;
     margin: 0;
     padding: 0;
   }
   
-  header {
-    background-color: #4caf50;
-    margin: 0 auto;
-    height: 50px;
+  h1 {
+    font-family: 'Red Rose', cursive;
+    font-size: 45px;
   }
-  
+
   header h2 {
     padding: 10px;
     margin: 0;
@@ -26,9 +26,10 @@ body {
   div.card {
     background-color: #eeeeee;
     height: 250px;
-    width: 300px;
+    width: 378px;
     padding: 10px;
     border-radius: 10px;
+    
   }
   
   p {

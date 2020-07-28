@@ -4,11 +4,13 @@ const POEMS_URL = `${BASE_URL}/poems`;
 
 window.addEventListener("load", () => {
   getPoets();
+  createNewPoet();
 });
 
 const main = () => {
   return document.querySelector("main");
 };
+
 //loads poets
 const getPoets = () => {
   fetch("http://localhost:3000/poets")
@@ -38,6 +40,52 @@ const renderPoetsCard = (poets) => {
   poets.poems.forEach((poem) => renderPoems(poem, poemsList));
 };
 
+const createNewPoet = () => {
+  let form = document.querySelector("a");
+  form.addEventListener("click", displayPoetForm);
+};
+
+const displayPoetForm = () => {
+  let poetForm = document.getElementById("poet-form");
+  let html = `
+  <form>
+    <label>Name</label>
+    <input type="text" id="name">
+    <label>Style</label>
+    <input type="text" id="style">
+    <input type="submit" value="Submit">
+  </form>
+  `;
+
+  poetForm.innerHTML = html;
+  document.querySelector("form").addEventListener("submit", createPoet);
+};
+
+const createPoet = () => {
+  event.preventDefault();
+  console.log("Form clicked");
+
+  const poet = {
+    name: document.getElementById("name").value,
+    style: document.getElementById("style").value,
+  };
+
+  //fetch POST
+  fetch(POETS_URL, {
+    method: "POST",
+    body: JSON.stringify(poet),
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      renderPoetsCard(data);
+      clearPoetForm();
+    });
+};
+
 const renderPoems = (poem, list) => {
   let poemCard = document.createElement("li");
   poemCard.id = `poem-${poem.id}`;
@@ -57,6 +105,10 @@ const renderPoems = (poem, list) => {
 const clearForm = () => {
   let poem = document.getElementById("poem-form");
   poem.innerHTML = "";
+};
+const clearPoetForm = () => {
+  let poet = document.getElementById("poet-form");
+  poet.innerHTML = "";
 };
 
 const deletePoem = () => {

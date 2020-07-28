@@ -5,7 +5,6 @@ const POEMS_URL = `${BASE_URL}/poems`;
 window.addEventListener("load", () => {
   getPoets();
   createNewPoet();
-  searchForPoets();
 });
 
 const main = () => {

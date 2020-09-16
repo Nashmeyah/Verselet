@@ -1,9 +1,10 @@
 class Edit {
-  constructor(data) {}
+  constructor(data) {
+    this.id = data.target.getAttribute("data-poem-id");
+    this.data = event.path[1].textContent;
+  }
 
   renderEditForm() {
-    let id = event.target.getAttribute("data-poem-id");
-    let data = event.path[1].textContent;
     console.log(event);
     let form = document.querySelector(".edit-popup");
 
@@ -12,8 +13,8 @@ class Edit {
     } else {
       form.style.display = "block";
     }
-    document.querySelector(".btn-update").setAttribute("data-id", id);
-    document.getElementById("title").value = data;
+    document.querySelector(".btn-update").setAttribute("data-id", this.id);
+    document.getElementById("title").value = this.data;
   }
 
   // const editPoem = () => {

@@ -1,7 +1,7 @@
 # Verselet
-Verselet is a webpage that allows poets to create and post their poems online for everyone to view. 
+Verselet is a single page webapp that allows poets to create and post their poems online for everyone to view. You can see other poems work, and have the ability to search for a specific poem. 
 
-Uses:
+## Development:
 
 Frontend: HTML, CSS, JS
 Backend: Rails API
@@ -10,13 +10,14 @@ Backend: Rails API
 1. Fork and clone this repo
 2. Open Terminal
 3. Navigate to the app directory
-4. Navigate to league-hero-backend directory
-5. Type bundle install into terminal
-6. Type rake db:migrate into terminal
-7. Type rails s into terminal and navigate to the localhost url that it provides
+4. Navigate to *verselet* directory
+5. Type `bundle install` into terminal to get the latest gems
+6. Type `rake db:migrate` into terminal to set up the database
+7. Type `rails s` into terminal and navigate to the localhost url that it provides
 8. Open index.html in your browser of choice.
 
-
+## Uses
+###### You can be use this app however you like. There is an unlimited possibilites other than creating poems. Enjoy!
 # Licesnse
 Copyright 2020 Nashmeyah
 

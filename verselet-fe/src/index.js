@@ -97,7 +97,7 @@ const renderPoems = (poem, list) => {
   editBtn.className = "edit";
   editBtn.dataset.poemId = poem.id;
   editBtn.innerText = "Edit";
-  editBtn.addEventListener("click", renderEditForm);
+  editBtn.addEventListener("click", editForm);
 
   //delete button
   let releaseBtn = document.createElement("button");
@@ -113,24 +113,10 @@ const renderPoems = (poem, list) => {
   list.appendChild(poemCard);
 };
 
-const renderEditForm = (event) => {
-  let id = event.target.getAttribute("data-poem-id");
-  let data = event.path[1].textContent;
-  console.log(event.path[1].textContent);
-  let form = document.querySelector(".edit-popup");
-
-  if (form.style.display === "block") {
-    form.style.display = "none";
-  } else {
-    form.style.display = "block";
-  }
-  document.querySelector(".btn-update").setAttribute("data-id", id);
-  document.getElementById("title").value = data;
+const editForm = (event) => {
+  let edit = new Edit(event);
+  edit.renderEditForm();
 };
-
-// const editPoem = () => {
-//   console.log("This button was clicked");
-// };
 
 const clearForm = () => {
   let poem = document.getElementById("poem-form");

@@ -19,7 +19,7 @@ class Poem {
     editBtn.className = "edit";
     editBtn.dataset.poemId = this.id;
     editBtn.innerText = "Edit";
-    editBtn.addEventListener("click", editPoem);
+    editBtn.addEventListener("click", renderEditForm);
 
     //delete button
     let releaseBtn = document.createElement("button");

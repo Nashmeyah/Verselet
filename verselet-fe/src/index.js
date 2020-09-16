@@ -90,7 +90,7 @@ const createPoet = () => {
 const renderPoems = (poem, list) => {
   let poemCard = document.createElement("li");
   poemCard.id = `poem-${poem.id}`;
-  poemCard.innerText = `Title: ${poem.title}`;
+  poemCard.innerHTML = `<br>Title: ${poem.title} <br> Poem: ${poem.body} `;
 
   //edit button
   let editBtn = document.createElement("button");
@@ -115,15 +115,17 @@ const renderPoems = (poem, list) => {
 
 const renderEditForm = (event) => {
   let id = event.target.getAttribute("data-poem-id");
+  let data = event.path[1].textContent;
+  console.log(event.path[1].textContent);
   let form = document.querySelector(".edit-popup");
 
-  if (form.style.display === "none") {
-    form.style.display = "block";
-  } else {
+  if (form.style.display === "block") {
     form.style.display = "none";
+  } else {
+    form.style.display = "block";
   }
   document.querySelector(".btn-update").setAttribute("data-id", id);
-  console.log(event.target);
+  document.getElementById("title").value = data;
 };
 
 // const editPoem = () => {

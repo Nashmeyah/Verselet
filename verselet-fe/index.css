@@ -2,6 +2,7 @@ body {
   background: url("images/169279-simple_background.jpg") no-repeat fixed center;
     margin: 0;
     padding: 0;
+    
   }
   
   h1 {
@@ -15,21 +16,21 @@ body {
   }
   
   main {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-gap: 20px;
-    padding-top: 10px;
-    padding-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   
   div.card {
+    position: relative;
+
     background-color: #eeeeee;
+    margin:20px 20px 0px 0px;
     height: 250px;
-    width: 378px;
+    width: 530px;
     padding: 10px;
-    border-radius: 10px;
     overflow:auto;
+
   }
   
   p {

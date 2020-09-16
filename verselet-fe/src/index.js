@@ -107,9 +107,9 @@ const renderPoems = (poem, list) => {
   releaseBtn.addEventListener("click", deletePoem);
   poemCard.appendChild(releaseBtn);
   poemCard.appendChild(editBtn);
-  if (!list) {
-    list = event.target.parentElement.lastElementChild;
-  }
+  // if (!list) {
+  //   list = event.target.parentElement.lastElementChild;
+  // }
   list.appendChild(poemCard);
 };
 

@@ -91,17 +91,44 @@ const renderPoems = (poem, list) => {
   let poemCard = document.createElement("li");
   poemCard.id = `poem-${poem.id}`;
   poemCard.innerText = `Title: ${poem.title}`;
+
+  //edit button
+  let editBtn = document.createElement("button");
+  editBtn.className = "edit";
+  editBtn.dataset.poemId = poem.id;
+  editBtn.innerText = "Edit";
+  editBtn.addEventListener("click", renderEditForm);
+
+  //delete button
   let releaseBtn = document.createElement("button");
   releaseBtn.className = "delete";
   releaseBtn.dataset.poemId = poem.id;
   releaseBtn.innerText = "Delete";
   releaseBtn.addEventListener("click", deletePoem);
   poemCard.appendChild(releaseBtn);
+  poemCard.appendChild(editBtn);
   if (!list) {
     list = event.target.parentElement.lastElementChild;
   }
   list.appendChild(poemCard);
 };
+
+const renderEditForm = (event) => {
+  let id = event.target.getAttribute("data-poem-id");
+  let form = document.querySelector(".edit-popup");
+
+  if (form.style.display === "none") {
+    form.style.display = "block";
+  } else {
+    form.style.display = "none";
+  }
+  document.querySelector(".btn-update").setAttribute("data-id", id);
+  console.log(event.target);
+};
+
+// const editPoem = () => {
+//   console.log("This button was clicked");
+// };
 
 const clearForm = () => {
   let poem = document.getElementById("poem-form");
@@ -130,7 +157,7 @@ const displayPoemForm = () => {
     <label>Title</label>
     <input type="text" id="title">
     <label>Poem Body</label>
-    <input type="text" id="body">
+    <textarea type="text" id="body" rows=2></textarea>
     <input type="submit" value"Submit">
   </form>
   `;

@@ -19,6 +19,8 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
   
   div.card {
@@ -32,13 +34,27 @@ body {
     overflow:auto;
 
   }
-  
+  div.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   p {
     font-size: 1.5em;
     color: black;
     font-family: Helvetica;
   }
-  
+ 
+
+a{
+
+    background-color: black;
+    border-radius: 10%;
+    color: red;
+    text-decoration: none;
+    padding: 2px;
+    margin: 10px;
+  }
   li {
     font-size: 1.05em;
     list-style: none;

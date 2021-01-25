@@ -8,6 +8,9 @@ body {
   h1 {
     font-family: 'Red Rose', cursive;
     font-size: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   header h2 {
@@ -48,8 +51,11 @@ body {
 
 a{
 
-    background-color: black;
-    border-radius: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 20px;
     color: red;
     text-decoration: none;
     padding: 2px;

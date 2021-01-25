@@ -16,8 +16,4 @@ class Edit {
     document.querySelector(".btn-update").setAttribute("data-id", this.id);
     document.getElementById("title").value = this.data;
   }
-
-  // const editPoem = () => {
-  //   console.log("This button was clicked");
-  // };
 }

@@ -32,12 +32,10 @@ class PoemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_poem
       @poem = Poem.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def poem_params
       params.require(:poem).permit(:title, :body, :poet_id)
     end
